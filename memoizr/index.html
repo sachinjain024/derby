@@ -4,14 +4,43 @@
 		<title> Memorizr </title>
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.css" />
+		<link rel="stylesheet" type="text/css" href="css/custom.css" />
 	</head>
 
 	<body>
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<section class="span9"> Video section </section>
-				<section class="span3"> Options section </section>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">	
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+							<li class="nav-option"> <a href="#" >Home </a> </li>
+							<li class="active nav-option"> <a href="#"> Low level </a> </li>
+							<li class="nav-option"> <a href="#"> Medium level </a> </li>
+							<li class="nav-option"> <a href="#"> High level </a> </li>
+							<li class="nav-option"> <a href="#"> Custom level </a> </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<section class="span6 offset3 video-area">
+					<canvas id="canvas"> </canvas>
+				</section>
+			</div>
+			<div class="row">
+				<section class="span6 offset3 pagination-centered">
+					<button class="start-game success"> Start Game </button>
+					<button class="reset-game"> Restart Game </button>
+				</section>
 			</div>
       	</div>
+
+      	<!-- Include scripts here -->
+      	<script type="text/javascript" src="libs/jquery-1.9.0.js"></script>
+      	<script type="text/javascript" src="js/main.js"></script>
+      	<!-- End of scripts section -->
 	</body>
 </html>
