@@ -1,0 +1,76 @@
+<html>
+<head>
+<script src="filter.js"></script>
+</head>
+<body>
+<select id="filterselect"></select>
+<div></div>
+<video style="display:none;"></video>
+<canvas id="dcanvas" width=320 height=240></canvas>
+<script>
+// shim layer with setTimeout fallback
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
+navigator.getMedia = ( navigator.getUserMedia ||
+               
+			   navigator.webkitGetUserMedia ||
+                       navigator.mozGetUserMedia ||
+                       navigator.msGetUserMedia);
+					   
+function animloop(){
+  requestAnimFrame(animloop);
+  render();
+}
+
+
+function init(){ 
+
+var allfilters = $filterjs.getAllFilters();
+var filterselect = document.getElementById("filterselect");
+for(var i=0;i<allfilters.length;i++){
+    var opt = document.createElement('option');
+	opt.setAttribute('value',allfilters[i]);
+	opt.innerHTML=allfilters[i];
+	filterselect.appendChild(opt);
+}
+navigator.getMedia ({video: true}, 
+   // successCallback
+   function(localMediaStream) {
+      var video = document.querySelector('video');
+      video.src = window.URL.createObjectURL(localMediaStream);
+      video.onloadedmetadata = function(e) {
+ 		   video.play();
+		   requestAnimFrame(animloop);
+      };
+   },
+    // errorCallback
+   function(err) { console.log("The following error occured: " + err);});
+
+}
+
+function render(){
+     var video = document.querySelector('video');
+	 var filterselect = document.getElementById("filterselect");
+	 if(video.videoWidth>2&&video.videoHeight>2){
+         var cnv = document.getElementById("dcanvas");
+	     var ctx = cnv.getContext('2d');
+	     ctx.drawImage(video,0,0,video.videoWidth,video.videoHeight,0,0,cnv.width,cnv.height);
+		 var sData = ctx.getImageData(0,0,cnv.width,cnv.height);
+		 var tData = ctx.createImageData(sData.width,sData.height);
+         $filterjs.getFilter(filterselect.value)(sData,tData);
+         ctx.putImageData(tData,0,0);		 
+	 }
+}
+
+
+init();
+</script>
+</body>
+</html>
