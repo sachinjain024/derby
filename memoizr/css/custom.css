@@ -5,10 +5,8 @@ body {
 
 .video-area {
   margin-top: 1rem;
-  border: 1px solid black;
 }
 
-#canvas {
-  height: 350px;
-  width: 350px;
+#video {
+  border: 1px solid black;
 }
