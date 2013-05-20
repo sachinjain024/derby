@@ -6,7 +6,14 @@ Mz.LEVELS = {
 	MEDIUM	: { value: 1, time: 4000, numPics: 5 },
 	HIGH	: { value: 2, time: 2000, numPics: 5 }
 };
-
+Mz.filters=[
+              ["flipXY",{}],
+              ["bulge",{}],
+              ["pinch",{}],
+              ["wave",{}],
+              ["randomjitter",{}],
+              ["pixelate",{pixelSize:5}]
+          ];
 // By Default, Low level is selected
 Mz.selectedLevel = Mz.LEVELS.LOW;
 
@@ -50,11 +57,15 @@ function startTakingPictures() {
   	canvas.height = video.videoHeight/4;
   	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   	  	
-  	var rand = getRandom();
-  	Mz.snapshotTimestamps.push(rand);
-  	Mz.numSnapshots++;
   	canvas.setAttribute('data-index', rand);
+        var tData = ctx.createImageData(canvas.width-1,canvas.height-1);
+        var filterIdx = ~~(Math.random()*Mz.filters.length);
+        $filterjs.getFilter(Mz.filters[filterIdx][0])(ctx.getImageData(0,0,canvas.width-1,canvas.height-1),tData,Mz.filters[filterIdx][1]);
 
+        var rand = getRandom();
+        Mz.snapshotTimestamps.push(rand);
+        Mz.numSnapshots++;
+        ctx.putImageData(tData,0,0);
   	$('<li>').addClass('thumbnail').append(canvas).appendTo(inputContainer);
 
   	if (Mz.numSnapshots <= Mz.selectedLevel.numPics) {
