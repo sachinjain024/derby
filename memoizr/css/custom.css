@@ -3,10 +3,41 @@ body {
   padding-top: 40px;
 }
 
+.low #item-7,
+.low #item-8,
+.low #item-9,
+.low #item-10 {
+  display: none;
+}
+
+.medium #item-9,
+.medium #item-10 {
+  display: none;
+}
+
 .video-area {
   margin-top: 1rem;
 }
 
 #video {
   border: 1px solid black;
+}
+
+#image-preview-container {
+  display: none;
+}
+
+.actions {
+  text-align: center;
+}
+
+.thumbnail {
+  border: 1px solid black;
+  display: block;
+  height: 150px;
+  width: 150px;
+}
+
+.thumbnail img {
+  height: 150px;
 }

@@ -13,39 +13,80 @@
 				<div class="container">	
 					<div class="nav-collapse collapse">
 						<ul class="nav">
-							<li class="nav-option"> <a href="#" >Home </a> </li>
-							<li class="active nav-option"> <a href="#"> Low level </a> </li>
-							<li class="nav-option"> <a href="#"> Medium level </a> </li>
-							<li class="nav-option"> <a href="#"> High level </a> </li>
-							<li class="nav-option"> <a href="#"> Custom level </a> </li>
+							<li class="active nav-option" data-level="low"> <a href="#"> Low level </a> </li>
+							<li class="nav-option" data-level="medium"> <a href="#"> Medium level </a> </li>
+							<li class="nav-option" data-level="low"> <a href="#"> High level </a> </li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="container">
+		<div class="container low" id="main-container">
 			<div class="row">
-				<section class="span6 offset3 video-area">
+				<section class="span3 offset3">
+					<ul class="thumbnails">
+						<li class="thumbnail" id="item-8"> </li>
+					</ul>
+				</section>
+				<section class="span3">
+					<ul class="thumbnails">
+						<li class="thumbnail" id="item-7"> </li>
+					</ul>
+				</section>
+			</div>
+
+			<div class="row">
+				<section class="span3">
+					<ul class="thumbnails">
+						<li class="thumbnail" id="item-1"> </li>
+						<li class="thumbnail" id="item-2"> </li>
+					</ul>
+				</section>
+
+				<section class="span6 video-area">
 					<video id="video" width="500" height="350"> </video>
+					<article id="image-preview-container"> </article>
+					<div class="actions">
+						<button class="start-game success-btn"> Start Game </button>
+						<button class="reset-game"> Restart Game </button>
+					</div>
 				</section>
-			</div>
-			<div class="row">
-				<section class="span6 offset3 pagination-centered">
-					<button class="start-game success"> Start Game </button>
-					<button class="reset-game"> Restart Game </button>
+
+				<section class="span3">
+					<ul class="thumbnails">
+						<li class="thumbnail" id="item-6"> </li>
+						<li class="thumbnail" id="item-5"> </li>
+					</ul>
 				</section>
 			</div>
 
-			<!-- Input Row -->
 			<div class="row">
-				<ul class="thumbnails" id="input-row"> </ul>
+				<section class="span3">
+					<ul class="thumbnails">
+						<li class="thumbnail" id="item-9"> </li>
+					</ul>
+				</section>
+
+				<section class="span3">
+					<ul class="thumbnails">
+						<li class="thumbnail" id="item-3"> </li>
+					</ul>
+				</section>
+
+				<section class="span3">
+					<ul class="thumbnails">
+						<li class="thumbnail" id="item-4"> </li>
+					</ul>
+				</section>
+
+				<section class="span3">
+					<ul class="thumbnails">
+						<li class="thumbnail" id="item-10"> </li>
+					</ul>
+				</section>
 			</div>
 
-			<!-- Output row -->
-			<div class="row">
-				<ul class="thumbnails" id="output-row"> </ul>
-			</div>
       	</div>
 
       	<!-- Include scripts here -->
