@@ -73,9 +73,16 @@ function startTakingPictures() {
   console.log(tData);
   console.log(Mz.numSnapshots);
 
-  var image = $('<img />').attr({'src': canvas.toDataURL(), 'data-index': rand}); 
-	$('#item-' + Mz.numSnapshots).empty().append(image);
+  var listItem = $('#item-' + Mz.numSnapshots).empty();
+  var div = $('<div />').addClass('list-header');
 
+  var userInputPositionSpan = $('<span />').addClass('user-input-position-span').appendTo(div);  
+  var correctPositionSpan = $('<span />').text(Mz.numSnapshots).addClass('correct-position-span').appendTo(div);
+  var crossSpan = $('<span />').addClass('icon-remove').addClass('cancel-selection-span').appendTo(div);
+
+  div.appendTo(listItem);
+  var image = $('<img />').attr({'src': canvas.toDataURL(), 'data-index': rand}).appendTo(listItem);
+  
   Mz.numSnapshots++;
 	if (Mz.numSnapshots <= Mz.selectedLevel.numPics) {
 		setTimeout(startTakingPictures, Mz.selectedLevel.time);
