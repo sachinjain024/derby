@@ -90,20 +90,23 @@ function startTakingPictures() {
 }
 
 function enterTestMode() {
-  alert('Reached');
-  // Hide all thumbnails 
+  // Add class to container to hide/show respective elements on screen
+  $('#main-container').removeClass('picture-mode').addClass('test-mode');
 
-  // Hide all correct value spans
+  // Hide all thumbnails --> Done with Css rule
 
-  // Show image having instructions
+  // Hide all correct value spans (Already hidden in test-mode CSS rule)
 
-  // When user pressees (shuffle cards button)
-  // Shuffle cards (after 5 seconds: Call a method to shuffle using setTimeout)
+  // Show image having instructions and hide video
 
   Mz.inTestMode = true;
+
+  // When user pressees (Start Test button)
+  // Shuffle cards (after 5 seconds: Call a method to shuffle using setTimeout)
+
   // When user clicks on thumbnail, fill the value of span and push the li in queue
 
-  // When queue is full, show button to Check result and show correct value spans and use LCS to calculate the score 
+  // When queue is full, show button to Check result and show correct value spans and use LCS to calculate the score
 }
 
 function getRandom() {

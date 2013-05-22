@@ -15,6 +15,11 @@ body {
   display: none;
 }
 
+.picture-mode .start-test,
+.picture-mode .show-result {
+  display: none;
+}
+
 .video-area {
   margin-top: 1rem;
 }
@@ -23,7 +28,7 @@ body {
   border: 1px solid black;
 }
 
-#image-preview-container {
+.picture-mode #image-preview-container {
   display: none;
 }
 
@@ -62,6 +67,7 @@ body {
 
 .user-input-position-span {
   background-color: rgb(24,117,235);
+  display: none;
 }
 
 .correct-position-span {
@@ -78,4 +84,27 @@ body {
 
 .thumbnail img {
   height: 150px;
+}
+
+/* Rules for Test Mode */
+.test-mode .start-game,
+.test-mode .reset-game {
+  display: none;
+}
+
+.test-mode .start-test,
+.test-mode .show-result {
+  display: inline;
+}
+
+.test-mode #video {
+  display: none;
+}
+
+.test-mode #image-preview-container {
+  display: block;
+}
+
+.test-mode .correct-value-span {
+  display: none;
 }
