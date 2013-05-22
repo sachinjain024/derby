@@ -92,7 +92,11 @@ function changeGameLevel(event) {
   $('.nav li.active').removeClass('active');
   $(event.currentTarget).addClass('active');
   var selectedLevel = $(event.currentTarget).data('level');
+  setLevel(selectedLevel);
+  console.log(selectedLevel);
+}
 
+function setLevel(selectedLevel) {
   $('#main-container').removeClass('low').removeClass('medium').removeClass('high').addClass(selectedLevel);
   Mz.selectedLevel = Mz.LEVELS[selectedLevel.toUpperCase()];
   console.log(Mz.selectedLevel);
@@ -105,4 +109,9 @@ function refreshObjects() {
   
   Mz.snapshotTimestamps = [];
   Mz.numSnapshots = 0;
+  
+  // Empty all the image tags
+  for (var i=Mz.selectedLevel.numPics; i>0; i--) {
+    $('#item-' + i).empty();
+  }
 }
