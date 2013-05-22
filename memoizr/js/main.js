@@ -51,9 +51,6 @@ function playVideo() {
 }
 
 function startTakingPictures() {
-	// Break recursion if number of snapshots are complete as per selected level
-  if (Mz.numSnapshots > Mz.selectedLevel.numPics) return;
-	
 	var canvas = document.createElement('canvas');
 	var ctx = canvas.getContext('2d');
 
@@ -73,7 +70,7 @@ function startTakingPictures() {
   console.log(tData);
   console.log(Mz.numSnapshots);
 
-  var listItem = $('#item-' + Mz.numSnapshots).empty();
+  var listItem = $('#item-' + Mz.numSnapshots).empty().addClass('thumbnail-present');
   var div = $('<div />').addClass('list-header');
 
   var userInputPositionSpan = $('<span />').addClass('user-input-position-span').appendTo(div);  
@@ -88,7 +85,25 @@ function startTakingPictures() {
 		setTimeout(startTakingPictures, Mz.selectedLevel.time);
 		return;
 	}
+  enterTestMode();
 	video.pause();
+}
+
+function enterTestMode() {
+  alert('Reached');
+  // Hide all thumbnails 
+
+  // Hide all correct value spans
+
+  // Show image having instructions
+
+  // When user pressees (shuffle cards button)
+  // Shuffle cards (after 5 seconds: Call a method to shuffle using setTimeout)
+
+  Mz.inTestMode = true;
+  // When user clicks on thumbnail, fill the value of span and push the li in queue
+
+  // When queue is full, show button to Check result and show correct value spans and use LCS to calculate the score 
 }
 
 function getRandom() {
