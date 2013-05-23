@@ -45,6 +45,7 @@ function playVideo() {
 			video = document.getElementById('video');
 	        video.mozSrcObject = stream;
 	        video.play();
+          Mz.inTestMode = false;
 	        startTakingPictures();
 	    }, function(error) {
 	    	alert('Your browser does not support getUserMedia API. Please get to latest Firefox');
@@ -147,7 +148,6 @@ function getRandom() {
 }
 
 function changeGameLevel(event) {
-
   if (!Mz.inTestMode) {
     alert('Please wait until all pictures for this level are not taken');
     return;
@@ -180,5 +180,4 @@ function refreshObjects() {
   }
 
   $('#main-container').addClass('picture-mode').removeClass('test-mode');
-  Mz.inTestMode = false;
 }
