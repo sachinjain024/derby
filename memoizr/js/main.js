@@ -80,8 +80,7 @@ function startTakingPictures() {
 
   var userInputPositionSpan = $('<span />').addClass('user-input-position-span').appendTo(div);  
   var correctPositionSpan = $('<span />').text(Mz.numSnapshots).addClass('correct-position-span').appendTo(div);
-  var crossSpan = $('<span />').addClass('icon-remove').addClass('cancel-selection-span').appendTo(div);
-
+  
   div.appendTo(listItem);
   var image = $('<img />').attr({'src': canvas.toDataURL(), 'data-index': rand}).appendTo(listItem);
   
@@ -113,7 +112,7 @@ function updateAttempts(e) {
 
   var elem = e.currentTarget;
   var $elem = (elem.tagName == 'LI') ? $(elem) : $(elem).parent('li.thumbnail');
-  console.log($elem);
+  
   var correctPosition = $elem.find('.correct-position-span').text();
   
   Mz.numAttempts++;
@@ -131,7 +130,21 @@ function updateAttempts(e) {
 }
 
 function shuffleImages() {
-  alert('Images shuffled');
+  var list = $('.thumbnail');
+
+  // Randomized using Deck shuffle algorithm
+  var length = Mz.selectedLevel.numPics;
+  for (var i=1; i<=length; i++) {
+    var randomIndex = Math.floor(Math.random() * (length - i+1) + i);
+    swapHTML($('#item-' + i), $('#item-' + randomIndex));
+  }
+}
+
+function swapHTML(elem1, elem2) {
+  var html1 = $(elem1).html();
+  var html2 = $(elem2).html();
+  $(elem1).html(html2);
+  $(elem2).html(html1);
 }
 
 function getRandom() {

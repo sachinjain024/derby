@@ -49,7 +49,7 @@ body {
 }
 
 .list-header {
-  margin-top: -20px;
+  margin-top: -17px;
   margin-left: -5px;
   margin-right: -4px;
 }
@@ -67,7 +67,7 @@ body {
 
 .user-input-position-span {
   background-color: rgb(24,117,235);
-  display: none;
+  visibility: hidden;
 }
 
 .correct-position-span {
