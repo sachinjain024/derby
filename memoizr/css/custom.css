@@ -3,6 +3,10 @@ body {
   padding-top: 40px;
 }
 
+.row {
+  margin-top: 20px;
+}
+
 .low #item-7,
 .low #item-8,
 .low #item-9,
@@ -34,12 +38,19 @@ body {
 
 .actions {
   text-align: center;
+  margin-left: -75px;
 }
 
 .thumbnail {
-  height: 150px;
-  width: 150px;
-  display: none;
+  height: 125px;
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+
+.thumbnail img {
+  height: 125px; 
+  width: 200px;
 }
 
 .thumbnail-present {
@@ -73,10 +84,6 @@ body {
 .correct-position-span {
   background-color: rgb(33, 235, 33);
   display: none;
-}
-
-.thumbnail img {
-  height: 150px;
 }
 
 /* Rules for Test Mode */

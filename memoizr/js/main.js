@@ -97,17 +97,12 @@ function enterTestMode() {
   // Add class to container to hide/show respective elements on screen
   $('#main-container').removeClass('picture-mode').addClass('test-mode');
 
-  // Hide all correct value spans (Already hidden in test-mode CSS rule)
-
-  // Show image having instructions and hide video
-
   Mz.inTestMode = true;
 
   shuffleImages();
 }
 
 function updateAttempts(e) {
-  
   if (!Mz.inTestMode) return;
 
   var elem = e.currentTarget;
@@ -152,11 +147,17 @@ function getRandom() {
 }
 
 function changeGameLevel(event) {
+
+  if (!Mz.inTestMode) {
+    alert('Please wait until all pictures for this level are not taken');
+    return;
+  }
+
   $('.nav li.active').removeClass('active');
   $(event.currentTarget).addClass('active');
   var selectedLevel = $(event.currentTarget).data('level');
   setLevel(selectedLevel);
-  console.log(selectedLevel);
+  // console.log(selectedLevel);
 }
 
 function setLevel(selectedLevel) {
@@ -175,6 +176,9 @@ function refreshObjects() {
   
   // Empty all the image tags
   for (var i=Mz.selectedLevel.numPics; i>0; i--) {
-    $('#item-' + i).empty();
+    $('#item-' + i).empty().removeClass('thumbnail-present');
   }
+
+  $('#main-container').addClass('picture-mode').removeClass('test-mode');
+  Mz.inTestMode = false;
 }
