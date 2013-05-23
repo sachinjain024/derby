@@ -26,9 +26,14 @@ Mz.gumVideoPermission = { video: true };
 Mz.snapshotTimestamps = [];
 Mz.numSnapshots = 0;
 
+// Number of Attempts in test mode
+Mz.numAttempts = 0;
+Mz.successAttempts = 0;
+
 // Define all event handlers here
 $('.start-game').on('click', playVideo);
 $('.nav-option').on('click', changeGameLevel);
+$('.thumbnail').on('click', updateAttempts);
 
 var video = null;
 function playVideo() {
@@ -93,20 +98,40 @@ function enterTestMode() {
   // Add class to container to hide/show respective elements on screen
   $('#main-container').removeClass('picture-mode').addClass('test-mode');
 
-  // Hide all thumbnails --> Done with Css rule
-
   // Hide all correct value spans (Already hidden in test-mode CSS rule)
 
   // Show image having instructions and hide video
 
   Mz.inTestMode = true;
 
-  // When user pressees (Start Test button)
-  // Shuffle cards (after 5 seconds: Call a method to shuffle using setTimeout)
+  shuffleImages();
+}
 
-  // When user clicks on thumbnail, fill the value of span and push the li in queue
+function updateAttempts(e) {
+  
+  if (!Mz.inTestMode) return;
 
-  // When queue is full, show button to Check result and show correct value spans and use LCS to calculate the score
+  var elem = e.currentTarget;
+  var $elem = (elem.tagName == 'LI') ? $(elem) : $(elem).parent('li.thumbnail');
+  console.log($elem);
+  var correctPosition = $elem.find('.correct-position-span').text();
+  
+  Mz.numAttempts++;
+
+  if (correctPosition == Mz.successAttempts + 1) {
+    Mz.successAttempts++;
+    $('#status').text('Correct -- :)');
+    $('.correct-position-span', $elem).show();
+  } else {
+    $('#status').text('Incorrect attempt..Try again -- :)');
+  }
+
+  $('#success-attempts').text(Mz.successAttempts);
+  $('#num-attempts').text(Mz.numAttempts);
+}
+
+function shuffleImages() {
+  alert('Images shuffled');
 }
 
 function getRandom() {

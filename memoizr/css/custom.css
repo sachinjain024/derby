@@ -28,7 +28,7 @@ body {
   border: 1px solid black;
 }
 
-.picture-mode #image-preview-container {
+.picture-mode #message-board, #image-preview-canvas {
   display: none;
 }
 
@@ -49,7 +49,7 @@ body {
 }
 
 .list-header {
-  margin-top: -18px;
+  margin-top: -20px;
   margin-left: -5px;
   margin-right: -4px;
 }
@@ -72,14 +72,7 @@ body {
 
 .correct-position-span {
   background-color: rgb(33, 235, 33);
-}
-
-.cancel-selection-span {
-  float: right;
-  background-color: #ccc;
-  height: 14px;
-  line-height: 14px;
-  width: 7px;
+  display: none;
 }
 
 .thumbnail img {
@@ -87,24 +80,19 @@ body {
 }
 
 /* Rules for Test Mode */
-.test-mode .start-game,
-.test-mode .reset-game {
-  display: none;
-}
-
-.test-mode .start-test,
-.test-mode .show-result {
-  display: inline;
-}
 
 .test-mode #video {
   display: none;
 }
 
-.test-mode #image-preview-container {
+.test-mode #message-board {
   display: block;
 }
 
 .test-mode .correct-value-span {
+  display: none;
+}
+
+.test-mode .start-game {
   display: none;
 }

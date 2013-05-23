@@ -46,16 +46,18 @@
 
 				<section class="span6 video-area">
 					<video id="video" width="500" height="350"> </video>
-					<article id="image-preview-container" width="500" height="350"> 
-						<!-- Image will be there with set of instructions -->
-						We will show instructions here in some beautiful manner
+					<canvas id="image-preview-canvas" width="500" height="350"> </canvas>
+					<article id="message-board" width="500" height="350"> 
+						<p> Just remember the order in which your snapshots were taken </br />
+							Test your memory now </p>
+
+						<p> Successful: <span id='success-attempts'> 0 </span> </p>
+						<p> Number of Attemps: <span id='num-attempts'> 0 </span> </p>
+
+						<p id='status'></p>
 					</article>
 					<div class="actions">
 						<button class="start-game"> Start Game </button>
-						<button class="reset-game"> Restart Game </button>
-						<button class="start-test"> Start test </button>
-						<button class="show-result"> Show Result </button>
-
 					</div>
 				</section>
 
