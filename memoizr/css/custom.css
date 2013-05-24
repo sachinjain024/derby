@@ -7,6 +7,20 @@ body {
   margin-top: 20px;
 }
 
+.tv {
+  display: none;
+}
+
+#instruction-board {
+  display: block;
+  width: 500px;
+}
+
+.carousel-inner img {
+  width: 500px;
+  height: 375px;
+}
+
 .low #item-7,
 .low #item-8,
 .low #item-9,
@@ -19,11 +33,6 @@ body {
   display: none;
 }
 
-.picture-mode .start-test,
-.picture-mode .show-result {
-  display: none;
-}
-
 .video-area {
   margin-top: 1rem;
 }
@@ -32,13 +41,22 @@ body {
   border: 1px solid black;
 }
 
-.picture-mode #message-board, #image-preview-canvas {
+.picture-mode .tv,
+.picture-mode #instruction-board {
   display: none;
+}
+
+.picture-mode #video {
+  display: block;
 }
 
 .actions {
   text-align: center;
   margin-left: -75px;
+}
+
+.picture-mode .actions {
+  margin-top: 20px;
 }
 
 .thumbnail {
@@ -87,8 +105,8 @@ body {
 }
 
 /* Rules for Test Mode */
-
-.test-mode #video {
+.test-mode .tv,
+.test-mode #instruction-board {
   display: none;
 }
 

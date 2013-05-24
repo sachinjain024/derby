@@ -36,9 +36,11 @@ $('.nav-option').on('click', changeGameLevel);
 $('.thumbnail').on('click', updateAttempts);
 
 var video = null;
+refreshObjects();
+
 function playVideo() {
-  
-  refreshObjects();
+  $('#main-container').addClass('picture-mode');
+
 	try {
 		window.navigator.mozGetUserMedia(Mz.gumVideoPermission, function(stream) {
 			// Remove video object if already exists
@@ -57,6 +59,7 @@ function playVideo() {
 }
 
 function startTakingPictures() {
+  Mz.inPictureMode = true;
 	var canvas = document.createElement('canvas');
 	var ctx = canvas.getContext('2d');
 
@@ -92,6 +95,7 @@ function startTakingPictures() {
 	}
   enterTestMode();
 	video.pause();
+  Mz.inPictureMode = false;
 }
 
 function enterTestMode() {
@@ -148,7 +152,7 @@ function getRandom() {
 }
 
 function changeGameLevel(event) {
-  if (!Mz.inTestMode) {
+  if (Mz.inPictureMode) {
     alert('Please wait until all pictures for this level are not taken');
     return;
   }
@@ -179,5 +183,5 @@ function refreshObjects() {
     $('#item-' + i).empty().removeClass('thumbnail-present');
   }
 
-  $('#main-container').addClass('picture-mode').removeClass('test-mode');
-}
+  $('#main-container').removeClass('picture-mode').removeClass('test-mode');
+  }

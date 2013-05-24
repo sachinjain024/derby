@@ -22,7 +22,7 @@
 			</div>
 		</div>
 
-		<div class="container low picture-mode" id="main-container">
+		<div class="container low" id="main-container">
 
 			<!-- Last row - Item (1,2,3,4) -->
 			<div class="row">
@@ -35,9 +35,32 @@
 				</section>
 
 				<section class="span6 video-area">
-					<video id="video" width="500" height="375"> </video>
-					<canvas id="image-preview-canvas" width="500" height="375"> </canvas>
-					<article id="message-board" width="500" height="375"> 
+					<video id="video" class="tv" width="500" height="375"> </video>
+					<canvas id="image-preview-canvas" class="tv" width="500" height="375"> </canvas>
+
+					<!-- Bootstrap carousel for instructions -->
+					<article id="instruction-board" class="tv" width="500" height="375">
+						    <div id="myCarousel" class="carousel slide">
+							    <ol class="carousel-indicators">
+								    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								    <li data-target="#myCarousel" data-slide-to="1"></li>
+								    <li data-target="#myCarousel" data-slide-to="2"></li>
+								    <li data-target="#myCarousel" data-slide-to="3"></li>
+							    </ol>
+							    <!-- Carousel items -->
+							    <div class="carousel-inner">
+								    <div class="active item"> <img src="img/instruction-slide-1.PNG" /> </div>
+								    <div class="item"> <img src="img/instruction-slide-2.PNG" /> </div>
+								    <div class="item"> <img src="img/instruction-slide-3.PNG" /> </div>
+								    <div class="item"> <img src="img/instruction-slide-4.PNG" /> </div>
+							    </div>
+							    <!-- Carousel nav -->
+							    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+							    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+						    </div>
+					</article>
+
+					<article id="message-board" class="tv" width="500" height="375"> 
 						<p> Just remember the order in which your snapshots were taken </br />
 							Test your memory now </p>
 
@@ -91,6 +114,10 @@
       	<!-- Include scripts here -->
       	<script type="text/javascript" src="libs/jquery-1.9.0.js"></script>
         <script type="text/javascript" src="libs/filter/filter.js"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript">
+        	$('#myCarousel').carousel();
+        </script>
       	<script type="text/javascript" src="js/main.js"></script>
       	<!-- End of scripts section -->
 	</body>
