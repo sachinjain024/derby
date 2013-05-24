@@ -117,12 +117,14 @@ function updateAttempts(e) {
   
   Mz.numAttempts++;
 
+  $('#status').removeClass('correct');
+  
   if (correctPosition == Mz.successAttempts + 1) {
     Mz.successAttempts++;
-    $('#status').text('Correct -- :)');
+    $('#status').text('Awesome..You made the right selection').addClass('correct');
     $('.correct-position-span', $elem).show();
   } else {
-    $('#status').text('Incorrect attempt..Try again -- :)');
+    $('#status').text('Oops..Think again');
   }
 
   $('#success-attempts').text(Mz.successAttempts);
