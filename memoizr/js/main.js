@@ -11,9 +11,9 @@ Mz.numFramesRendred = 0;
 
 // Defining Difficulty level 
 Mz.LEVELS = {
-	LOW		: { value: 0, time: 3000, numPics: 6, maxAttepmts: 9 },
-	MEDIUM	: { value: 1, time: 3000, numPics: 8, maxAttepmts: 12 },
-	HIGH	: { value: 2, time: 3000, numPics: 10, maxAttepmts: 16 }
+	LOW		: { value: 0, time: 2000, numPics: 6, maxAttepmts: 9 },
+	MEDIUM	: { value: 1, time: 2000, numPics: 8, maxAttepmts: 12 },
+	HIGH	: { value: 2, time: 2000, numPics: 10, maxAttepmts: 16 }
 };
 
 Mz.filters=[
@@ -115,8 +115,11 @@ function startTakingPictures() {
     enterTestMode();
   	video.pause();
     Mz.inPictureMode = false;
+    video.src = null;
+    console.log(Mz.numFramesRendred);
   } else {
-    setTimeout(startTakingPictures, 1000);    
+    setTimeout(startTakingPictures, 1000);
+    return;
   }
 }
 
@@ -217,7 +220,6 @@ function changeGameLevel(event) {
   $(event.currentTarget).addClass('active');
   var selectedLevel = $(event.currentTarget).data('level');
   setLevel(selectedLevel);
-  // console.log(selectedLevel);
 }
 
 function setLevel(selectedLevel) {
@@ -230,6 +232,7 @@ function setLevel(selectedLevel) {
 function refreshObjects() {
   video = document.getElementById('video');
   video.mozSrcObject = null;
+  video.src = null;
   
   Mz.snapshotTimestamps = [];
   Mz.numSnapshots = 0;
@@ -238,6 +241,7 @@ function refreshObjects() {
   Mz.successAttempts = 0;
 
   Mz.inTestMode = false;
+  Mz.inPictureMode = false;
 
   Mz.isGameFinished = false;
 
@@ -249,7 +253,12 @@ function refreshObjects() {
   }
 
   $('#main-container').removeClass('picture-mode').removeClass('test-mode');
-  $('#status').removeClass('end-game-status-success').removeClass('end-game-status-failure');
+  $('#status').removeClass('end-game-status-success').removeClass('end-game-status-failure').text('Output');
+  $('.restart-game').hide();
+  $('#success-attempts').text(Mz.successAttempts);
+  $('#num-attempts').text(Mz.numAttempts);
+  var ctx = Mz.previewCanvas.getContext('2d');
+  ctx.clearRect(0, 0, Mz.previewCanvas.width, Mz.previewCanvas.height);
 }
 
 function showImagePreview(e) {
