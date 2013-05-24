@@ -51,6 +51,10 @@ body {
   width: 530px;
 }
 
+#video {
+  display: none;
+}
+
 #status {
   display: none;
 }
@@ -60,7 +64,7 @@ body {
   display: none;
 }
 
-.picture-mode #video {
+.picture-mode #image-preview-canvas {
   display: block;
 }
 

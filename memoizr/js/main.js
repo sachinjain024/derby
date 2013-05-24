@@ -1,5 +1,14 @@
 var Mz = Mz || {};
 
+navigator.getMedia = (navigator.getUserMedia ||  
+                      navigator.webkitGetUserMedia ||
+                      navigator.mozGetUserMedia ||
+                      navigator.msGetUserMedia);
+
+// Number of frames per second
+Mz.numFramesPerSecond = 10;
+Mz.numFramesRendred = 0;
+
 // Defining Difficulty level 
 Mz.LEVELS = {
 	LOW		: { value: 0, time: 3000, numPics: 6, maxAttepmts: 9 },
@@ -15,6 +24,9 @@ Mz.filters=[
               ["randomjitter",{}],
               ["pixelate",{pixelSize:5}]
           ];
+
+// Initial filter
+Mz.filterIdx = ~~(Math.random()*Mz.filters.length);
 
 // By Default, Low level is selected
 Mz.selectedLevel = Mz.LEVELS.LOW;
@@ -51,42 +63,64 @@ function playVideo() {
   $('#main-container').addClass('picture-mode');
 
 	try {
-		window.navigator.mozGetUserMedia(Mz.gumVideoPermission, function(stream) {
+		navigator.getMedia(Mz.gumVideoPermission, function(stream) {
 			// Remove video object if already exists
 			video = document.getElementById('video');
-	        video.mozSrcObject = stream;
-	        video.play();
-	        startTakingPictures();
-	    }, function(error) {
-	    	alert('Your browser does not support getUserMedia API. Please get to latest Firefox');
-	    });
+	     //video.mozSrcObject = stream;
+      video.src = window.URL.createObjectURL(stream);
+
+      video.onloadedmetadata = function() {
+        video.play();
+        startTakingPictures();
+      };
+
+	  }, function(error) {
+	    alert('Your browser does not support getUserMedia API. Please get to latest Firefox');
+	  });
 	} catch (e) {
 		// SHow message here. 
-		alert('Error caught in catch' + e);
+		alert('Unable to get access to your webcam. Please refresh your page and try again');
 	}
 }
 
 function startTakingPictures() {
-  Mz.inPictureMode = true;
-	var canvas = document.createElement('canvas');
-	var ctx = canvas.getContext('2d');
+  if (video.videoWidth > 5) {
+    Mz.inPictureMode = true;
+  	var canvas = Mz.previewCanvas;
+  	var ctx = canvas.getContext('2d');
 
-	canvas.width  = video.videoWidth/4;
-	canvas.height = video.videoHeight/4;
-	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-	  	
-  // Applying random filter on canvas
-  var tData = ctx.createImageData(canvas.width-1,canvas.height-1);
-  var filterIdx = ~~(Math.random()*Mz.filters.length);
-  $filterjs.getFilter(Mz.filters[filterIdx][0])(ctx.getImageData(0,0,canvas.width-1,canvas.height-1),tData,Mz.filters[filterIdx][1]);
+  	canvas.width  = video.videoWidth/4;
+  	canvas.height = video.videoHeight/4;
+  	ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  	  	
+    // Applying random filter on canvas
+    var tData = ctx.createImageData(canvas.width-1,canvas.height-1);
+    $filterjs.getFilter(Mz.filters[Mz.filterIdx][0])(ctx.getImageData(0,0,canvas.width-1,canvas.height-1),tData,Mz.filters[Mz.filterIdx][1]);
+    ctx.putImageData(tData,0,0);
 
-  var rand = getRandom();
-  Mz.snapshotTimestamps.push(rand);
-  ctx.putImageData(tData,0,0);
+    // Check if we should take snapshot now
+    var timeElapsed = (Mz.numFramesRendred * 1000)/Mz.numFramesPerSecond;
+    if (timeElapsed % Mz.selectedLevel.time == 0) {
+      captureSnapshot(canvas.toDataURL());
+      console.log(timeElapsed);
+    }
 
-  console.log(tData);
-  console.log(Mz.numSnapshots);
+    Mz.numFramesRendred++;
 
+  	if (Mz.numSnapshots <= Mz.selectedLevel.numPics) {
+  		setTimeout(startTakingPictures, 1000/Mz.numFramesPerSecond);
+  		return;
+  	}
+
+    enterTestMode();
+  	video.pause();
+    Mz.inPictureMode = false;
+  } else {
+    setTimeout(startTakingPictures, 1000);    
+  }
+}
+
+function captureSnapshot(imageSource) {
   var listItem = $('#item-' + Mz.numSnapshots).empty().addClass('thumbnail-present');
   var div = $('<div />').addClass('list-header');
 
@@ -94,16 +128,11 @@ function startTakingPictures() {
   var correctPositionSpan = $('<span />').text(Mz.numSnapshots).addClass('correct-position-span').appendTo(div);
   
   div.appendTo(listItem);
-  var image = $('<img />').attr({'src': canvas.toDataURL(), 'data-index': rand}).appendTo(listItem);
-  
+  var image = $('<img />').attr({'src': imageSource}).appendTo(listItem);
   Mz.numSnapshots++;
-	if (Mz.numSnapshots <= Mz.selectedLevel.numPics) {
-		setTimeout(startTakingPictures, Mz.selectedLevel.time);
-		return;
-	}
-  enterTestMode();
-	video.pause();
-  Mz.inPictureMode = false;
+
+  // Choose another filter now
+  Mz.filterIdx = ~~(Math.random()*Mz.filters.length);
 }
 
 function enterTestMode() {
@@ -145,7 +174,7 @@ function updateAttempts(e) {
 }
 
 function finishGame() {
-  if (Mz.numAttempts >= Mz.selectedLevel.numPics) {
+  if (Mz.numAttempts > Mz.selectedLevel.maxAttepmts) {
     $('#status').text('You took more attempts than expected..Try again').addClass('end-game-status-failure');
   } else {
     $('#status').text('You are impressive..Great Job').addClass('end-game-status-success');
@@ -211,6 +240,8 @@ function refreshObjects() {
   Mz.inTestMode = false;
 
   Mz.isGameFinished = false;
+
+  Mz.numFramesRendred = 0;
   
   // Empty all the image tags
   for (var i=Mz.selectedLevel.numPics; i>0; i--) {
