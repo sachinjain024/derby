@@ -15,6 +15,7 @@ body {
 
 .restart-game {
   display: none;
+  float: right;
 }
 
 #instruction-board {
@@ -151,7 +152,7 @@ body {
   display: inline-block;
 }
 
-#status {
+/*#status {
   color: white;
   background-color: red;
   text-align: center;
@@ -164,15 +165,17 @@ body {
 #status.correct {
   background-color: green;
   left: 45px;
-}
+}*/
 
 #status.end-game-status-failure {
   background-color: red;
+  color: white;
   left: 0px;
 }
 
 #status.end-game-status-success {
   background-color: green;
+  color: white;
   left: 0px;
 }
 

@@ -42,6 +42,20 @@ Mz.numSnapshots = 0;
 Mz.numAttempts = 0;
 Mz.successAttempts = 0;
 
+// Success Messages
+Mz.successMessageList = [
+  'Awesome..You made the right selection',
+  'Great Job........Keep doing good',
+  'You are doing great..Thumbs up!!',
+  'Nicely Done...Please continue'
+];
+
+Mz.failureMessageList = [
+  'Oops..Wrong selection',
+  'Please try again....',
+  'Think better next time'
+];
+
 // Image preview container (Used in Test mode)
 // Saving a global reference to avoid multiple DOM queries
 Mz.previewCanvas = document.getElementById('image-preview-canvas');
@@ -157,14 +171,18 @@ function updateAttempts(e) {
   
   Mz.numAttempts++;
 
-  $('#status').removeClass('correct');
+  //$('#status').removeClass('alert-success').addClass('alert-error');
 
   if (correctPosition == Mz.successAttempts + 1) {
     Mz.successAttempts++;
-    $('#status').text('Awesome..You made the right selection').addClass('correct');
+    //TODO
+    // $('#status').text().addClass('correct');
+    $('#status').text(Mz.successMessageList[ getRandom() % Mz.successMessageList.length] )
+                .addClass('alert-success').removeClass('alert-error');
     $('.correct-position-span', $elem).show();
   } else {
-    $('#status').text('Oops..Think again');
+    $('#status').text(Mz.failureMessageList[ getRandom() % Mz.failureMessageList.length] )
+                .removeClass('alert-success').addClass('alert-error');
   }
 
   $('#success-attempts').text(Mz.successAttempts);
